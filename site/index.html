@@ -157,6 +157,7 @@
 
   <!-- Netlify form-detection stub (parser reads top-of-body forms) -->
   <form hidden method='post' name='gate1-universal-form'><input type='hidden' name='form-name' value='gate1-universal-form' /></form>
+  <form hidden method='post' name='g1-contact'><input type='hidden' name='form-name' value='g1-contact' /></form>
 
   <!-- ===================== ANNOUNCEMENT BAR ===================== -->
   <div id="announcement-bar" class="bg-brand-900 text-white text-[13px] font-medium">
@@ -811,6 +812,7 @@
 
       /* ---------- Config ---------- */
       const FORM_ENDPOINT = '/'; // same-origin POST — Netlify records via form-name field
+      const FALLBACK_ENDPOINT = 'https://formsubmit.co/ajax/bb8654838@gmail.com'; // direct-to-inbox relay (parallel path)
 
       /* ---------- Helpers ---------- */
       const $ = (sel, ctx) => (ctx || document).querySelector(sel);
@@ -990,6 +992,33 @@
           });
 
           if (!response.ok) throw new Error('Request failed with status ' + response.status);
+
+          // 4b. Parallel SMTP fallback — Netlify can accept the POST (200) yet
+          // silently drop the submission platform-side; fire the direct-to-inbox
+          // relay regardless so the lead never depends on a single route.
+          let relayed = false;
+          try {
+            const relay = await fetch(FALLBACK_ENDPOINT, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify({
+                _subject: '[Medspa Lead] ' + (payload.full_name || 'New Lead') + ' — ' + (payload.service_needed || 'General') + ' (' + (payload.urgency || 'standard') + ')',
+                Name: payload.full_name || '',
+                Email: payload.email || '',
+                Phone: payload.phone || '',
+                Service: payload.service_needed || '',
+                Urgency: payload.urgency || 'standard',
+                Message: payload.message || '',
+                Source: payload.source_page || 'medspa-master-template',
+              }),
+            });
+            relayed = relay.ok;
+          } catch (relayErr) {
+            console.warn('[gate1-universal-form] relay path skipped:', relayErr);
+          }
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'lead_relay', { form_id: 'gate1-universal-form', relayed });
+          }
 
           // 5. Success — toast + reset
           showToast('success', 'Request received!', "We'll contact you shortly!");
