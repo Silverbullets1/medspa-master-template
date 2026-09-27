@@ -982,44 +982,52 @@
         // 3. Loading state
         setLoading(true);
 
+        // 4. POST as URL-encoded (required for Netlify form detection).
+        // Relay is fired regardless of the primary outcome — Netlify can
+        // fail (network/405) or accept-then-silently-drop; the lead must
+        // reach the inbox either way (parallel path, never single-route).
+        let primaryOk = false;
         try {
-          // 4. POST as URL-encoded (required for Netlify form detection)
           const body = new URLSearchParams(payload).toString();
           const response = await fetch(FORM_ENDPOINT, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body,
           });
+          primaryOk = response.ok;
+          if (!response.ok) console.warn('[gate1-universal-form] primary path status', response.status);
+        } catch (primaryErr) {
+          console.warn('[gate1-universal-form] primary path failed:', primaryErr);
+        }
 
-          if (!response.ok) throw new Error('Request failed with status ' + response.status);
+        // 4b. Parallel SMTP fallback — direct-to-inbox relay
+        let relayed = false;
+        try {
+          const relay = await fetch(FALLBACK_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              _subject: '[Medspa Lead] ' + (payload.full_name || 'New Lead') + ' — ' + (payload.service_needed || 'General') + ' (' + (payload.urgency || 'standard') + ')',
+              Name: payload.full_name || '',
+              Email: payload.email || '',
+              Phone: payload.phone || '',
+              Service: payload.service_needed || '',
+              Urgency: payload.urgency || 'standard',
+              Message: payload.message || '',
+              Source: payload.source_page || 'medspa-master-template',
+            }),
+          });
+          relayed = relay.ok;
+        } catch (relayErr) {
+          console.warn('[gate1-universal-form] relay path skipped:', relayErr);
+        }
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'lead_relay', { form_id: 'gate1-universal-form', primaryOk, relayed });
+        }
 
-          // 4b. Parallel SMTP fallback — Netlify can accept the POST (200) yet
-          // silently drop the submission platform-side; fire the direct-to-inbox
-          // relay regardless so the lead never depends on a single route.
-          let relayed = false;
-          try {
-            const relay = await fetch(FALLBACK_ENDPOINT, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-              body: JSON.stringify({
-                _subject: '[Medspa Lead] ' + (payload.full_name || 'New Lead') + ' — ' + (payload.service_needed || 'General') + ' (' + (payload.urgency || 'standard') + ')',
-                Name: payload.full_name || '',
-                Email: payload.email || '',
-                Phone: payload.phone || '',
-                Service: payload.service_needed || '',
-                Urgency: payload.urgency || 'standard',
-                Message: payload.message || '',
-                Source: payload.source_page || 'medspa-master-template',
-              }),
-            });
-            relayed = relay.ok;
-          } catch (relayErr) {
-            console.warn('[gate1-universal-form] relay path skipped:', relayErr);
-          }
-          if (typeof window.gtag === 'function') {
-            window.gtag('event', 'lead_relay', { form_id: 'gate1-universal-form', relayed });
-          }
-
+        if (!primaryOk && !relayed) {
+          showToast('error', 'Something went wrong', 'Please try again or call us at (555) 123-4567.');
+        } else {
           // 5. Success — toast + reset
           showToast('success', 'Request received!', "We'll contact you shortly!");
           form.reset();
@@ -1030,12 +1038,8 @@
           if (typeof window.gtag === 'function') {
             window.gtag('event', 'generate_lead', { form_id: 'gate1-universal-form' });
           }
-        } catch (err) {
-          console.error('[gate1-universal-form] submission error:', err);
-          showToast('error', 'Something went wrong', 'Please try again or call us at (555) 123-4567.');
-        } finally {
-          setLoading(false);
         }
+        setLoading(false);
       });
     })();
   </script>
