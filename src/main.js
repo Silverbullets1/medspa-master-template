@@ -2,6 +2,7 @@ import './style.css';
 import { loadConfig, applyTheme } from './config.js';
 import { render } from './render.js';
 import { initTilt, initReveals, initSmoothScroll, initNavScroll, initMagnetic } from './interactions.js';
+import { initLeadForm } from './leadForm.js';
 
 async function boot() {
   const config = await loadConfig();
@@ -11,10 +12,12 @@ async function boot() {
   document.getElementById('nav-burger')?.addEventListener('click', () => {
     document.getElementById('mobile-nav')?.classList.toggle('hidden');
   });
+  window.__leadDest = config.leadCapture?.destinationEmail || '';
   initNavScroll();
   initTilt();
   initSmoothScroll();
   initMagnetic();
+  initLeadForm();
   initReveals();
 }
 

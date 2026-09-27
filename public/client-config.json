@@ -88,5 +88,13 @@
     { "days": "Mon – Fri", "time": "9:00 AM – 7:00 PM" },
     { "days": "Saturday", "time": "10:00 AM – 5:00 PM" },
     { "days": "Sunday", "time": "By appointment" }
-  ]
+  ],
+  "leadCapture": {
+    "enabled": true,
+    "heading": "Request a Consultation",
+    "subtext": "Tell us your goals — our care team responds within one business day.",
+    "destinationEmail": "leads@lumieremedspa.com",
+    "gate1WebhookUrl": "",
+    "demoMode": true
+  }
 }

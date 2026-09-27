@@ -153,6 +153,74 @@ function contact() {
   </section>`;
 }
 
+function leadFormSection() {
+  const c = cfg();
+  const lc = c.leadCapture || {};
+  if (lc.enabled === false) return '';
+  const options = (c.services || [])
+    .map((s) => `<option value="${s.title}">${s.title}</option>`).join('');
+  return `
+  <section id="consult" class="relative py-28 max-w-7xl mx-auto px-6">
+    <div class="grid gap-10 lg:grid-cols-2 items-start">
+      <div data-reveal>
+        <p class="accent-text text-xs tracking-[0.35em] uppercase mb-4">Start here</p>
+        <h2 class="font-display text-4xl md:text-5xl mb-6">${lc.heading || 'Request a Consultation'}</h2>
+        <p class="text-white/70 leading-relaxed max-w-md">${lc.subtext || 'Tell us your goals and our care team will respond promptly.'}</p>
+        <ul class="mt-8 space-y-3 text-sm text-white/60">
+          <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 rounded-full accent-bg"></span>No-pressure consultation</li>
+          <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 rounded-full accent-bg"></span>Personalized treatment plan</li>
+          <li class="flex items-center gap-3"><span class="h-1.5 w-1.5 rounded-full accent-bg"></span>Response within one business day</li>
+        </ul>
+      </div>
+      <form id="lead-form" data-reveal novalidate
+        data-destination-email="${lc.destinationEmail || ''}"
+        data-lead-capture='${JSON.stringify(lc).replace(/'/g, '&#39;')}'
+        class="glass-strong rounded-3xl p-8 space-y-5">
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"
+               class="hidden" style="position:absolute;left:-9999px;height:0;width:0;" />
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="block">
+            <span class="text-xs uppercase tracking-widest text-white/50">Name *</span>
+            <input required name="name" type="text" placeholder="Jane Doe"
+              class="mt-2 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm placeholder-white/30 outline-none focus:border-[rgb(var(--brand-rgb))] transition" />
+          </label>
+          <label class="block">
+            <span class="text-xs uppercase tracking-widest text-white/50">Email *</span>
+            <input required name="email" type="email" placeholder="jane@email.com"
+              class="mt-2 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm placeholder-white/30 outline-none focus:border-[rgb(var(--brand-rgb))] transition" />
+          </label>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="block">
+            <span class="text-xs uppercase tracking-widest text-white/50">Phone</span>
+            <input name="phone" type="tel" placeholder="+1 (555) 000-0000"
+              class="mt-2 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm placeholder-white/30 outline-none focus:border-[rgb(var(--brand-rgb))] transition" />
+          </label>
+          <label class="block">
+            <span class="text-xs uppercase tracking-widest text-white/50">Preferred Service</span>
+            <select name="service"
+              class="mt-2 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm outline-none focus:border-[rgb(var(--brand-rgb))] transition [&>option]:bg-[#12121a]">
+              <option value="">General inquiry</option>
+              ${options}
+            </select>
+          </label>
+        </div>
+        <label class="block">
+          <span class="text-xs uppercase tracking-widest text-white/50">Message</span>
+          <textarea name="message" rows="4" placeholder="Tell us about your goals…"
+            class="mt-2 w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm placeholder-white/30 outline-none focus:border-[rgb(var(--brand-rgb))] transition resize-none"></textarea>
+        </label>
+        <button id="lead-submit" type="submit"
+          class="btn-primary w-full rounded-xl px-6 py-4 font-semibold flex items-center justify-center gap-3">
+          <svg id="lead-spinner" class="hidden animate-spin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 3a9 9 0 109 9"/></svg>
+          <span id="lead-submit-text">Request Consultation</span>
+        </button>
+        <p class="text-center text-xs text-white/35">Your details stay private — used only to plan your visit.</p>
+      </form>
+    </div>
+  </section>`;
+}
+
 function footer() {
   const c = cfg();
   return `
@@ -167,7 +235,7 @@ function footer() {
 export function render() {
   document.getElementById('app').innerHTML = `
     ${nav()}
-    <main>${hero()}${services()}${gallery()}${testimonials()}${contact()}</main>
+    <main>${hero()}${services()}${gallery()}${testimonials()}${leadFormSection()}${contact()}</main>
     ${footer()}`;
   document.getElementById('loader')?.remove();
 }
