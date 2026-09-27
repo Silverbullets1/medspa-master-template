@@ -1,88 +1,50 @@
 {
+  "_comment": "Glow MedSpa demo (09-27): purple & gold luxury. Lumière config lives in git history (commit c66c9f9). Gate-1 stays demoMode until a real webhook exists.",
   "client": {
-    "name": "Lumière Med-Spa",
-    "tagline": "Where science meets serenity",
-    "logoUrl": "https://placehold.co/320x120/0a0a0f/d4af37?text=LUMIERE&font=playfair-display",
-    "primaryColor": "#0e7490",
-    "accentColor": "#d4af37",
-    "bookingLink": "https://calendly.com/lumiere-demo/consult",
-    "phone": "+1 (555) 012-3456",
-    "email": "hello@lumieremedspa.com",
-    "address": "124 Wellness Avenue, Suite 200, Beverly Hills, CA 90210",
+    "name": "Glow MedSpa",
+    "tagline": "Confidence, amplified.",
+    "logoUrl": "https://dummyimage.com/640x200/2e1065/f0abfc.png&text=Glow+MedSpa",
+    "primaryColor": "#a855f7",
+    "accentColor": "#fbbf24",
+    "bookingLink": "https://calendly.com/glowmedspa-demo/consultation",
+    "phone": "+1 (786) 555-0117",
+    "email": "hello@glowmedspa.com",
+    "address": "1200 Brickell Bay Dr, Miami, FL 33131",
     "socials": {
-      "instagram": "https://instagram.com/lumieremedspa",
-      "facebook": "https://facebook.com/lumieremedspa"
+      "instagram": "https://instagram.com/glowmedspa",
+      "facebook": "https://facebook.com/glowmedspa",
+      "tiktok": "https://tiktok.com/@glowmedspa"
     }
   },
   "hero": {
-    "headline": "Redefine Your Natural Radiance",
-    "subheadline": "Physician-led aesthetic treatments tailored to your skin's unique biology — from injectables to advanced laser therapy.",
+    "headline": "Confidence, Amplified",
+    "subheadline": "Miami's most-loved medspa for injectables, laser and glow rituals — physician-led, results-obsessed.",
     "ctaPrimary": "Book a Consultation",
     "ctaSecondary": "Explore Treatments",
     "imageUrl": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80"
   },
   "services": [
-    {
-      "icon": "injectable",
-      "title": "Neuromodulators & Fillers",
-      "description": "Botox, Dysport and hyaluronic dermal fillers administered by board-certified injectors for natural, balanced results.",
-      "price": "from $250"
-    },
-    {
-      "icon": "laser",
-      "title": "Laser Resurfacing",
-      "description": "Fractional CO2 and IPL photofacials that erase sun damage, fine lines and texture with minimal downtime.",
-      "price": "from $400"
-    },
-    {
-      "icon": "skin",
-      "title": "Medical-Grade Facials",
-      "description": "HydraFacial, chemical peels and microneedling protocols customized to your skin analysis.",
-      "price": "from $180"
-    },
-    {
-      "icon": "body",
-      "title": "Body Contouring",
-      "description": "Non-invasive sculpting with CoolSculpting and radiofrequency tightening — no surgery, no anesthesia.",
-      "price": "from $600"
-    },
-    {
-      "icon": "wellness",
-      "title": "IV Wellness Therapy",
-      "description": "Physician-formulated vitamin infusions for glow, immunity, energy and recovery.",
-      "price": "from $150"
-    },
-    {
-      "icon": "hair",
-      "title": "Hair Restoration",
-      "description": "PRP therapy and exosome treatments clinically proven to thicken and regenerate.",
-      "price": "from $450"
-    }
+    { "icon": "injectable", "title": "Neuromodulators", "description": "Botox, Dysport and Xeomin — soft lines, natural movement, zero frozen look.", "price": "from $11/unit" },
+    { "icon": "injectable", "title": "Dermal Fillers", "description": "Lip, cheek and jawline contouring with hyaluronic acid fillers.", "price": "from $450/syringe" },
+    { "icon": "laser", "title": "Laser Glow Facial", "description": "Gentle laser resurfacing for tone, texture and instant radiance.", "price": "from $350" },
+    { "icon": "skin", "title": "HydraFacial Elite", "description": "Deep cleanse, extract and hydrate — the red-carpet glow ritual.", "price": "from $250" },
+    { "icon": "skin", "title": "Microneedling RF", "description": "Collagen-induction therapy with radiofrequency for firm, lifted skin.", "price": "from $400" },
+    { "icon": "wellness", "title": "IV Glow Drip", "description": "Glutathione and vitamin C infusion for inside-out radiance.", "price": "from $180" },
+    { "icon": "body", "title": "Body Contouring", "description": "Non-invasive fat reduction and skin tightening.", "price": "from $600" }
   ],
   "testimonials": [
-    {
-      "quote": "The most thorough skin consultation I've ever had. Three months in and my results look completely natural.",
-      "author": "Priya M.",
-      "service": "Laser Resurfacing"
-    },
-    {
-      "quote": "Their injector refused to over-fill me and told me to come back in 6 weeks instead. That honesty earned a client for life.",
-      "author": "Daniel K.",
-      "service": "Fillers"
-    },
-    {
-      "quote": "Booked the glow IV before my wedding — my makeup artist asked what I'd done differently. Worth every penny.",
-      "author": "Sofia R.",
-      "service": "IV Therapy"
-    }
+    { "quote": "My skin has never looked this good — the laser glow facial is magic.", "author": "Priya M.", "service": "Laser Glow Facial" },
+    { "quote": "Subtle, natural filler work. Everyone asks about my 'vacation glow'.", "author": "Daniela R.", "service": "Dermal Fillers" },
+    { "quote": "The IV drip and HydraFacial combo is my monthly ritual now.", "author": "Sam K.", "service": "IV Glow Drip" },
+    { "quote": "Professional, painless, perfect. Booking to results, five stars.", "author": "Aisha T.", "service": "Microneedling RF" }
   ],
   "gallery": [
-    { "src": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80", "alt": "Treatment suite" },
-    { "src": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80", "alt": "Reception lounge" },
-    { "src": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80", "alt": "Facial treatment" },
-    { "src": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80", "alt": "Spa products" },
-    { "src": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80", "alt": "Consultation room" },
-    { "src": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=80", "alt": "Skincare detail" }
+    { "src": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80", "alt": "Treatment suite" },
+    { "src": "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=900&q=80", "alt": "Glow ritual in progress" },
+    { "src": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80", "alt": "Consultation room" },
+    { "src": "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=900&q=80", "alt": "Skin analysis" },
+    { "src": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80", "alt": "Glow results" },
+    { "src": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80&sat=-20", "alt": "Relax lounge" }
   ],
   "hours": [
     { "days": "Mon – Fri", "time": "9:00 AM – 7:00 PM" },
@@ -93,7 +55,7 @@
     "enabled": true,
     "heading": "Request a Consultation",
     "subtext": "Tell us your goals — our care team responds within one business day.",
-    "destinationEmail": "leads@lumieremedspa.com",
+    "destinationEmail": "leads@glowmedspa.com",
     "gate1WebhookUrl": "",
     "demoMode": true
   }
