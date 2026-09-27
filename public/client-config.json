@@ -1,0 +1,92 @@
+{
+  "client": {
+    "name": "Lumière Med-Spa",
+    "tagline": "Where science meets serenity",
+    "logoUrl": "https://placehold.co/320x120/0a0a0f/d4af37?text=LUMIERE&font=playfair-display",
+    "primaryColor": "#0e7490",
+    "accentColor": "#d4af37",
+    "bookingLink": "https://calendly.com/lumiere-demo/consult",
+    "phone": "+1 (555) 012-3456",
+    "email": "hello@lumieremedspa.com",
+    "address": "124 Wellness Avenue, Suite 200, Beverly Hills, CA 90210",
+    "socials": {
+      "instagram": "https://instagram.com/lumieremedspa",
+      "facebook": "https://facebook.com/lumieremedspa"
+    }
+  },
+  "hero": {
+    "headline": "Redefine Your Natural Radiance",
+    "subheadline": "Physician-led aesthetic treatments tailored to your skin's unique biology — from injectables to advanced laser therapy.",
+    "ctaPrimary": "Book a Consultation",
+    "ctaSecondary": "Explore Treatments",
+    "imageUrl": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80"
+  },
+  "services": [
+    {
+      "icon": "injectable",
+      "title": "Neuromodulators & Fillers",
+      "description": "Botox, Dysport and hyaluronic dermal fillers administered by board-certified injectors for natural, balanced results.",
+      "price": "from $250"
+    },
+    {
+      "icon": "laser",
+      "title": "Laser Resurfacing",
+      "description": "Fractional CO2 and IPL photofacials that erase sun damage, fine lines and texture with minimal downtime.",
+      "price": "from $400"
+    },
+    {
+      "icon": "skin",
+      "title": "Medical-Grade Facials",
+      "description": "HydraFacial, chemical peels and microneedling protocols customized to your skin analysis.",
+      "price": "from $180"
+    },
+    {
+      "icon": "body",
+      "title": "Body Contouring",
+      "description": "Non-invasive sculpting with CoolSculpting and radiofrequency tightening — no surgery, no anesthesia.",
+      "price": "from $600"
+    },
+    {
+      "icon": "wellness",
+      "title": "IV Wellness Therapy",
+      "description": "Physician-formulated vitamin infusions for glow, immunity, energy and recovery.",
+      "price": "from $150"
+    },
+    {
+      "icon": "hair",
+      "title": "Hair Restoration",
+      "description": "PRP therapy and exosome treatments clinically proven to thicken and regenerate.",
+      "price": "from $450"
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "The most thorough skin consultation I've ever had. Three months in and my results look completely natural.",
+      "author": "Priya M.",
+      "service": "Laser Resurfacing"
+    },
+    {
+      "quote": "Their injector refused to over-fill me and told me to come back in 6 weeks instead. That honesty earned a client for life.",
+      "author": "Daniel K.",
+      "service": "Fillers"
+    },
+    {
+      "quote": "Booked the glow IV before my wedding — my makeup artist asked what I'd done differently. Worth every penny.",
+      "author": "Sofia R.",
+      "service": "IV Therapy"
+    }
+  ],
+  "gallery": [
+    { "src": "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80", "alt": "Treatment suite" },
+    { "src": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&q=80", "alt": "Reception lounge" },
+    { "src": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80", "alt": "Facial treatment" },
+    { "src": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80", "alt": "Spa products" },
+    { "src": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80", "alt": "Consultation room" },
+    { "src": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&q=80", "alt": "Skincare detail" }
+  ],
+  "hours": [
+    { "days": "Mon – Fri", "time": "9:00 AM – 7:00 PM" },
+    { "days": "Saturday", "time": "10:00 AM – 5:00 PM" },
+    { "days": "Sunday", "time": "By appointment" }
+  ]
+}
