@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Summit Home Services | Trusted Local Experts — Free Quotes, Same-Day Service</title>
+  <meta name="description" content="Licensed, insured and voted #1 local service provider. 24/7 emergency response, upfront pricing and a 100% satisfaction guarantee. Get your free quote today.">
+
+  <!-- ============================================================
+       MASTER LANDING PAGE TEMPLATE — Local Service Businesses
+       Swap brand colors in the Tailwind config + the :root block.
+       Swap hero image via --hero-image below.
+       ============================================================ -->
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    /* ---------- BRAND CONFIG: change these to re-skin the whole site ---------- */
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef4ff',
+              100: '#d9e6ff',
+              200: '#bcd2ff',
+              300: '#8eb4ff',
+              400: '#598aff',
+              500: '#3361ff',
+              600: '#1b41f5',
+              700: '#142fe1',
+              800: '#1728b6',
+              900: '#0b1e5b',   /* deep navy — primary dark */
+              950: '#071237',
+            },
+            accent: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            },
+          },
+          boxShadow: {
+            'soft': '0 10px 40px -10px rgba(11, 30, 91, 0.15)',
+            'glow': '0 0 0 4px rgba(51, 97, 255, 0.15)',
+            'card': '0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -8px rgba(15, 23, 42, 0.12)',
+          },
+          keyframes: {
+            'fade-up': { '0%': { opacity: 0, transform: 'translateY(24px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+            'pulse-ring': { '0%': { transform: 'scale(.9)', opacity: .8 }, '100%': { transform: 'scale(1.6)', opacity: 0 } },
+            'marquee': { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
+          },
+          animation: {
+            'fade-up': 'fade-up .8s cubic-bezier(.22,1,.36,1) both',
+            'pulse-ring': 'pulse-ring 1.6s cubic-bezier(.4,0,.6,1) infinite',
+            'marquee': 'marquee 30s linear infinite',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style type="text/tailwindcss">
+    :root {
+      /* Swap this URL for any business (roofing, dental office, HVAC tech, etc.) */
+      --hero-image: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=2000&q=80');
+    }
+
+    html { -webkit-font-smoothing: antialiased; }
+    body { @apply font-sans text-slate-700 bg-white; }
+
+    /* Hero background layer */
+    .hero-bg {
+      background-image: var(--hero-image);
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* Floating label fields */
+    .field { @apply relative; }
+    .field input, .field select, .field textarea {
+      @apply w-full rounded-xl border border-slate-200 bg-white px-4 pt-6 pb-2 text-[15px] text-slate-900 outline-none transition-all duration-200 placeholder-transparent;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { @apply border-brand-500 shadow-glow; }
+    .field label {
+      @apply pointer-events-none absolute left-4 top-4 text-[15px] text-slate-500 transition-all duration-200 origin-left;
+    }
+    .field input:focus ~ label,
+    .field input:not(:placeholder-shown) ~ label,
+    .field textarea:focus ~ label,
+    .field textarea:not(:placeholder-shown) ~ label,
+    .field select:focus ~ label,
+    .field select.has-value ~ label {
+      @apply top-2 text-xs font-semibold text-brand-600;
+    }
+    .field select { @apply appearance-none cursor-pointer; }
+    .field select:invalid { color: transparent; }
+    .field select.has-value { color: #0f172a; }
+    .field .chevron { @apply pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400; }
+    .field.has-error input, .field.has-error select, .field.has-error textarea { @apply border-red-400; }
+    .field .error-msg { @apply mt-1 hidden text-xs font-medium text-red-500; }
+    .field.has-error .error-msg { @apply block; }
+
+    /* Gradient text */
+    .text-gradient { @apply bg-gradient-to-r from-brand-400 to-accent-400 bg-clip-text text-transparent; }
+
+    /* Subtle grid pattern */
+    .bg-grid {
+      background-image: linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .bg-dots {
+      background-image: radial-gradient(rgba(11,30,91,.08) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+
+    /* Toast */
+    #toast { transform: translateY(24px); opacity: 0; pointer-events: none; transition: all .45s cubic-bezier(.22,1,.36,1); }
+    #toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+    /* Button shine */
+    .btn-shine { position: relative; overflow: hidden; }
+    .btn-shine::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.25) 50%, transparent 70%);
+      transform: translateX(-120%); transition: transform .7s ease;
+    }
+    .btn-shine:hover::after { transform: translateX(120%); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .animate-marquee, .animate-pulse-ring, .animate-fade-up { animation: none; }
+    }
+  </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+  <!-- Netlify form-detection stub (parser reads top-of-body forms) -->
+  <form hidden method='post' name='gate1-universal-form'><input type='hidden' name='form-name' value='gate1-universal-form' /></form>
+
+  <!-- ===================== ANNOUNCEMENT BAR ===================== -->
+  <div id="announcement-bar" class="bg-brand-900 text-white text-[13px] font-medium">
+    <div class="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 text-center sm:justify-between">
+      <p class="flex items-center gap-2">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 animate-pulse-ring"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+        </span>
+        Technicians available now · Same-day appointments open
+      </p>
+      <a href="tel:+15551234567" class="hidden items-center gap-2 hover:text-accent-400 transition sm:flex">
+        <i class="fa-solid fa-phone text-[11px]"></i> (555) 123-4567
+      </a>
+    </div>
+  </div>
+
+  <!-- ===================== HEADER / NAV ===================== -->
+  <header id="site-header" class="sticky top-0 z-50 border-b border-transparent bg-white/80 backdrop-blur-xl transition-all duration-300">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+      <a href="#" class="flex items-center gap-2.5" aria-label="Summit Home Services home">
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-900 text-white shadow-soft">
+          <i class="fa-solid fa-mountain text-lg"></i>
+        </span>
+        <span class="font-display text-xl font-800 font-extrabold tracking-tight text-brand-900">Summit<span class="text-brand-500">.</span></span>
+      </a>
+
+      <ul class="hidden items-center gap-8 text-[15px] font-medium text-slate-600 lg:flex">
+        <li><a href="#services" class="hover:text-brand-900 transition">Services</a></li>
+        <li><a href="#why-us" class="hover:text-brand-900 transition">Why Us</a></li>
+        <li><a href="#reviews" class="hover:text-brand-900 transition">Reviews</a></li>
+        <li><a href="#service-area" class="hover:text-brand-900 transition">Service Area</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <a href="tel:+15551234567" class="hidden items-center gap-2 text-[15px] font-semibold text-brand-900 md:flex">
+          <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-50 text-brand-600"><i class="fa-solid fa-phone"></i></span>
+          (555) 123-4567
+        </a>
+        <a href="#quote" class="btn-shine hidden rounded-xl bg-brand-600 px-5 py-2.5 text-[15px] font-semibold text-white shadow-soft transition hover:bg-brand-700 hover:-translate-y-0.5 sm:inline-flex">
+          Get a Free Quote
+        </a>
+        <button id="mobile-menu-toggle" class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 text-slate-700 lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden border-t border-slate-100 bg-white lg:hidden">
+      <ul class="flex flex-col px-4 py-3 text-[15px] font-medium text-slate-700">
+        <li><a href="#services" class="block rounded-lg px-3 py-3 hover:bg-slate-50">Services</a></li>
+        <li><a href="#why-us" class="block rounded-lg px-3 py-3 hover:bg-slate-50">Why Us</a></li>
+        <li><a href="#reviews" class="block rounded-lg px-3 py-3 hover:bg-slate-50">Reviews</a></li>
+        <li><a href="#service-area" class="block rounded-lg px-3 py-3 hover:bg-slate-50">Service Area</a></li>
+        <li class="pt-2"><a href="#quote" class="block rounded-xl bg-brand-600 px-4 py-3 text-center font-semibold text-white">Get a Free Quote</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section id="hero-section" class="relative isolate overflow-hidden bg-brand-950 text-white">
+      <div class="hero-bg absolute inset-0 -z-20 scale-105" aria-hidden="true"></div>
+      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-brand-950 via-brand-950/90 to-brand-900/60" aria-hidden="true"></div>
+      <div class="absolute inset-0 -z-10 bg-grid opacity-60" aria-hidden="true"></div>
+      <div class="absolute -right-40 -top-40 -z-10 h-[520px] w-[520px] rounded-full bg-brand-500/30 blur-3xl" aria-hidden="true"></div>
+
+      <div class="mx-auto grid max-w-7xl gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-12 lg:items-center lg:px-8 lg:pb-28 lg:pt-24">
+        <!-- Copy -->
+        <div class="lg:col-span-7 animate-fade-up">
+          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-medium backdrop-blur">
+            <span class="flex text-accent-400" aria-label="5 star rating">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </span>
+            <span class="text-white/90">4.9 rating · 1,200+ verified reviews</span>
+          </div>
+
+          <h1 class="font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+            Fast, Honest &amp; Reliable<br class="hidden sm:block">
+            Service You Can <span class="text-gradient">Trust.</span>
+          </h1>
+          <p class="mt-6 max-w-xl text-lg leading-relaxed text-slate-300">
+            Licensed, background-checked technicians on your doorstep in under 60 minutes. Upfront pricing, no surprises, and a 100% satisfaction guarantee — every single time.
+          </p>
+
+          <div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a href="#quote" class="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-accent-500 px-7 py-4 text-base font-bold text-brand-950 shadow-[0_12px_30px_-8px_rgba(245,158,11,.6)] transition hover:bg-accent-400 hover:-translate-y-0.5">
+              Get a Free Quote <i class="fa-solid fa-arrow-right text-sm"></i>
+            </a>
+            <a href="tel:+15551234567" class="inline-flex items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/5 px-6 py-4 text-base font-semibold backdrop-blur transition hover:bg-white/10">
+              <i class="fa-solid fa-phone-volume text-accent-400"></i> Call (555) 123-4567
+            </a>
+          </div>
+
+          <ul class="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-sm font-medium text-slate-300">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Licensed &amp; Insured</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> 24/7 Emergency Service</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> No Hidden Fees</li>
+          </ul>
+        </div>
+
+        <!-- Hero card -->
+        <aside class="lg:col-span-5 animate-fade-up [animation-delay:.2s]">
+          <div class="relative rounded-3xl border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+            <div class="absolute -top-4 right-6 rounded-full bg-accent-500 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-950 shadow-lg">Limited: $50 Off First Visit</div>
+            <div class="flex items-center gap-4">
+              <div class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white text-brand-900 shadow">
+                <i class="fa-solid fa-award text-2xl"></i>
+              </div>
+              <div>
+                <p class="font-display text-lg font-bold">Voted #1 Local Service</p>
+                <p class="text-sm text-slate-300">Community Choice Awards · 2024 &amp; 2025</p>
+              </div>
+            </div>
+            <dl class="mt-7 grid grid-cols-3 gap-3 text-center">
+              <div class="rounded-2xl bg-white/10 p-4">
+                <dt class="sr-only">Years in business</dt>
+                <dd class="font-display text-2xl font-extrabold" data-counter="18">0</dd>
+                <p class="text-xs text-slate-300">Years Serving</p>
+              </div>
+              <div class="rounded-2xl bg-white/10 p-4">
+                <dt class="sr-only">Jobs completed</dt>
+                <dd class="font-display text-2xl font-extrabold"><span data-counter="25000" data-suffix="+">0</span></dd>
+                <p class="text-xs text-slate-300">Jobs Done</p>
+              </div>
+              <div class="rounded-2xl bg-white/10 p-4">
+                <dt class="sr-only">Average response time</dt>
+                <dd class="font-display text-2xl font-extrabold"><span data-counter="45">0</span><span class="text-base">m</span></dd>
+                <p class="text-xs text-slate-300">Avg. Response</p>
+              </div>
+            </dl>
+            <a href="#quote" class="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-white py-3.5 font-semibold text-brand-900 transition hover:bg-brand-50">
+              <i class="fa-regular fa-calendar-check"></i> Book an Appointment
+            </a>
+            <p class="mt-3 text-center text-xs text-slate-400"><i class="fa-solid fa-lock mr-1"></i>No obligation · Response within 15 minutes</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== TRUST / SOCIAL PROOF ===================== -->
+    <section id="trust-section" class="border-b border-slate-100 bg-white py-12" aria-label="Trust and social proof">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid gap-6 md:grid-cols-3">
+          <!-- Google -->
+          <div class="flex items-center gap-4 rounded-2xl border border-slate-100 bg-slate-50/60 p-5">
+            <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white shadow-card">
+              <i class="fa-brands fa-google text-2xl text-[#4285F4]"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="font-display text-xl font-extrabold text-slate-900">4.9</span>
+                <span class="flex text-sm text-accent-500"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span>
+              </div>
+              <p class="text-sm text-slate-500">1,200+ Google Reviews</p>
+            </div>
+          </div>
+          <!-- Badge -->
+          <div class="flex items-center gap-4 rounded-2xl border border-slate-100 bg-slate-50/60 p-5">
+            <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white shadow-card">
+              <i class="fa-solid fa-trophy text-2xl text-accent-500"></i>
+            </div>
+            <div>
+              <p class="font-display font-bold text-slate-900">Voted #1 Local Service</p>
+              <p class="text-sm text-slate-500">Readers' Choice — 3 years running</p>
+            </div>
+          </div>
+          <!-- BBB -->
+          <div class="flex items-center gap-4 rounded-2xl border border-slate-100 bg-slate-50/60 p-5">
+            <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white shadow-card">
+              <i class="fa-solid fa-shield-halved text-2xl text-brand-600"></i>
+            </div>
+            <div>
+              <p class="font-display font-bold text-slate-900">A+ Rated &amp; Accredited</p>
+              <p class="text-sm text-slate-500">Fully licensed, bonded &amp; insured</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Client logos marquee -->
+        <div class="reveal reveal-delay-1 mt-10">
+          <p class="mb-5 text-center text-xs font-semibold uppercase tracking-[.2em] text-slate-400">Trusted by homeowners &amp; businesses across the region</p>
+          <div class="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+            <div class="flex w-max animate-marquee items-center gap-14 text-slate-400">
+              <!-- Set 1 -->
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-building"></i> Northgate Realty</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-hotel"></i> Harbor Inn</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-school"></i> Ridgeview Schools</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-store"></i> Maple &amp; Co.</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-hospital"></i> Lakeside Clinic</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-warehouse"></i> Atlas Logistics</span>
+              <!-- Set 2 (duplicate for seamless loop) -->
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-building"></i> Northgate Realty</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-hotel"></i> Harbor Inn</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-school"></i> Ridgeview Schools</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-store"></i> Maple &amp; Co.</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-hospital"></i> Lakeside Clinic</span>
+              <span class="flex items-center gap-2 font-display text-xl font-bold"><i class="fa-solid fa-warehouse"></i> Atlas Logistics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICES (BENTO GRID) ===================== -->
+    <section id="services" class="bg-slate-50 py-20 lg:py-28">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <p class="text-sm font-bold uppercase tracking-[.2em] text-brand-600">Our Services</p>
+          <h2 class="font-display mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">Everything your home needs, <span class="text-brand-600">handled by pros.</span></h2>
+          <p class="mt-4 text-lg text-slate-600">From urgent repairs to scheduled maintenance, one call covers it all.</p>
+        </div>
+
+        <div class="mt-14 grid gap-5 md:grid-cols-6 lg:grid-rows-2">
+          <!-- Feature card (large) -->
+          <article class="reveal group relative overflow-hidden rounded-3xl bg-brand-900 p-8 text-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-2xl md:col-span-6 lg:col-span-3 lg:row-span-2">
+            <div class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-500/30 blur-3xl transition group-hover:bg-accent-500/30"></div>
+            <div class="bg-grid absolute inset-0 opacity-50"></div>
+            <div class="relative flex h-full flex-col">
+              <span class="inline-flex w-fit items-center gap-2 rounded-full bg-red-500/90 px-3 py-1 text-xs font-bold uppercase tracking-wider">
+                <i class="fa-solid fa-bolt"></i> Emergency
+              </span>
+              <div class="mt-8 grid h-16 w-16 place-items-center rounded-2xl bg-white/10 text-3xl text-accent-400 backdrop-blur transition group-hover:scale-110 group-hover:rotate-3">
+                <i class="fa-solid fa-truck-fast"></i>
+              </div>
+              <h3 class="font-display mt-6 text-2xl font-bold sm:text-3xl">24/7 Emergency Repairs</h3>
+              <p class="mt-3 max-w-md text-slate-300">Burst pipe at 2 AM? No heat in a blizzard? Our on-call team is dispatched within minutes — nights, weekends, and holidays included.</p>
+              <ul class="mt-6 space-y-2 text-sm text-slate-200">
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Under 60-minute arrival</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Fully stocked trucks — fixed on first visit</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> No after-hours surcharge</li>
+              </ul>
+              <a href="#quote" class="mt-auto inline-flex items-center gap-2 pt-8 font-semibold text-accent-400 transition group-hover:gap-3">Request emergency help <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="reveal reveal-delay-1 group relative overflow-hidden rounded-3xl border border-slate-100 bg-white p-7 shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-2xl md:col-span-3 lg:col-span-3">
+            <div class="flex items-start justify-between">
+              <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-50 text-2xl text-brand-600 transition group-hover:bg-brand-600 group-hover:text-white"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+              <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Most Popular</span>
+            </div>
+            <h3 class="font-display mt-5 text-xl font-bold text-slate-900">Repairs &amp; Installation</h3>
+            <p class="mt-2 text-slate-600">Expert diagnostics and precision installation of fixtures, systems, and appliances — backed by a 2-year workmanship warranty.</p>
+            <a href="#quote" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition group-hover:gap-3">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="reveal reveal-delay-2 group relative overflow-hidden rounded-3xl border border-slate-100 bg-white p-7 shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-2xl md:col-span-3 lg:col-span-2">
+            <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-50 text-2xl text-brand-600 transition group-hover:bg-brand-600 group-hover:text-white"><i class="fa-solid fa-calendar-check"></i></div>
+            <h3 class="font-display mt-5 text-xl font-bold text-slate-900">Preventive Maintenance</h3>
+            <p class="mt-2 text-slate-600">Seasonal tune-ups and inspections that prevent costly breakdowns and extend system life.</p>
+            <a href="#quote" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition group-hover:gap-3">Learn more <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="reveal reveal-delay-3 group relative overflow-hidden rounded-3xl border border-slate-100 bg-white p-7 shadow-card transition duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-2xl md:col-span-6 lg:col-span-1">
+            <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-50 text-2xl text-brand-600 transition group-hover:bg-brand-600 group-hover:text-white"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <h3 class="font-display mt-5 text-xl font-bold text-slate-900">Free Inspections</h3>
+            <p class="mt-2 text-slate-600">Honest, no-pressure assessments with clear written estimates.</p>
+            <a href="#quote" class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 transition group-hover:gap-3">Book now <i class="fa-solid fa-arrow-right"></i></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHY CHOOSE US ===================== -->
+    <section id="why-us" class="relative overflow-hidden bg-white py-20 lg:py-28">
+      <div class="bg-dots absolute inset-0 opacity-70" aria-hidden="true"></div>
+      <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <!-- Visual -->
+        <div class="reveal relative order-2 lg:order-1">
+          <div class="relative overflow-hidden rounded-3xl shadow-2xl">
+            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80" alt="Friendly uniformed technician shaking hands with a satisfied homeowner" class="aspect-[4/5] w-full object-cover sm:aspect-[5/4]" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-950/70 via-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6 flex items-center gap-4 rounded-2xl bg-white/95 p-4 shadow-xl backdrop-blur">
+              <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-600"><i class="fa-solid fa-shield-check fa-user-shield text-xl"></i></div>
+              <div>
+                <p class="font-display font-bold text-slate-900">100% Satisfaction Guarantee</p>
+                <p class="text-sm text-slate-500">If you're not happy, we make it right — free.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Floating stat -->
+          <div class="absolute -right-4 -top-6 hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-2xl sm:block">
+            <p class="font-display text-3xl font-extrabold text-brand-900"><span data-counter="98">0</span>%</p>
+            <p class="text-xs font-medium text-slate-500">Would recommend us</p>
+          </div>
+        </div>
+
+        <!-- Copy -->
+        <div class="reveal reveal-delay-1 order-1 lg:order-2">
+          <p class="text-sm font-bold uppercase tracking-[.2em] text-brand-600">Why Choose Us</p>
+          <h2 class="font-display mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">The neighbors you call first — <span class="text-brand-600">for good reason.</span></h2>
+          <p class="mt-5 text-lg text-slate-600">We built this company on one simple idea: treat every home like it's our own. That's why thousands of families trust us year after year.</p>
+
+          <ul class="mt-9 grid gap-5 sm:grid-cols-2">
+            <li class="flex gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-900 text-white"><i class="fa-solid fa-clock"></i></span>
+              <div><p class="font-bold text-slate-900">24/7 Emergency Service</p><p class="text-sm text-slate-600">Real humans answer, day or night.</p></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-900 text-white"><i class="fa-solid fa-certificate"></i></span>
+              <div><p class="font-bold text-slate-900">Licensed &amp; Insured</p><p class="text-sm text-slate-600">Fully certified, bonded, and background-checked.</p></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-900 text-white"><i class="fa-solid fa-tag"></i></span>
+              <div><p class="font-bold text-slate-900">Upfront, Flat-Rate Pricing</p><p class="text-sm text-slate-600">Approve the price before we start. Always.</p></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-900 text-white"><i class="fa-solid fa-medal"></i></span>
+              <div><p class="font-bold text-slate-900">Workmanship Warranty</p><p class="text-sm text-slate-600">Every job backed for 2 full years.</p></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-900 text-white"><i class="fa-solid fa-broom"></i></span>
+              <div><p class="font-bold text-slate-900">Clean-Home Promise</p><p class="text-sm text-slate-600">Boot covers, drop cloths, spotless exit.</p></div>
+            </li>
+            <li class="flex gap-4">
+              <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-900 text-white"><i class="fa-solid fa-credit-card"></i></span>
+              <div><p class="font-bold text-slate-900">Flexible Financing</p><p class="text-sm text-slate-600">0% APR plans for qualified customers.</p></div>
+            </li>
+          </ul>
+
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a href="#quote" class="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-7 py-4 font-bold text-white shadow-soft transition hover:bg-brand-700 hover:-translate-y-0.5">Get My Free Quote <i class="fa-solid fa-arrow-right text-sm"></i></a>
+            <a href="#reviews" class="inline-flex items-center justify-center gap-2 font-semibold text-brand-900 hover:text-brand-600">See what neighbors say <i class="fa-solid fa-chevron-down text-xs"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROCESS ===================== -->
+    <section id="process" class="bg-brand-950 py-20 text-white lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <p class="text-sm font-bold uppercase tracking-[.2em] text-accent-400">How It Works</p>
+          <h2 class="font-display mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">Three simple steps to peace of mind</h2>
+        </div>
+        <ol class="mt-14 grid gap-8 md:grid-cols-3">
+          <li class="reveal relative rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+            <span class="font-display text-5xl font-extrabold text-white/10">01</span>
+            <div class="mt-2 grid h-12 w-12 place-items-center rounded-xl bg-accent-500 text-brand-950"><i class="fa-solid fa-comment-dots text-xl"></i></div>
+            <h3 class="font-display mt-5 text-xl font-bold">Tell us what you need</h3>
+            <p class="mt-2 text-slate-300">Fill out the 30-second form or call. We'll confirm a convenient time — often same-day.</p>
+          </li>
+          <li class="reveal reveal-delay-1 relative rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+            <span class="font-display text-5xl font-extrabold text-white/10">02</span>
+            <div class="mt-2 grid h-12 w-12 place-items-center rounded-xl bg-accent-500 text-brand-950"><i class="fa-solid fa-file-invoice-dollar text-xl"></i></div>
+            <h3 class="font-display mt-5 text-xl font-bold">Get an upfront quote</h3>
+            <p class="mt-2 text-slate-300">A certified pro inspects the issue and presents clear, flat-rate options. You decide — zero pressure.</p>
+          </li>
+          <li class="reveal reveal-delay-2 relative rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+            <span class="font-display text-5xl font-extrabold text-white/10">03</span>
+            <div class="mt-2 grid h-12 w-12 place-items-center rounded-xl bg-accent-500 text-brand-950"><i class="fa-solid fa-house-circle-check text-xl"></i></div>
+            <h3 class="font-display mt-5 text-xl font-bold">Relax — it's handled</h3>
+            <p class="mt-2 text-slate-300">We fix it right the first time, clean up, and back it with our 2-year warranty.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== REVIEWS ===================== -->
+    <section id="reviews" class="bg-slate-50 py-20 lg:py-28">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+          <div class="max-w-2xl">
+            <p class="text-sm font-bold uppercase tracking-[.2em] text-brand-600">Reviews</p>
+            <h2 class="font-display mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">Loved by 1,200+ local homeowners</h2>
+          </div>
+          <div class="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-5 py-3 shadow-card">
+            <i class="fa-brands fa-google text-2xl text-[#4285F4]"></i>
+            <div>
+              <div class="flex items-center gap-1 text-accent-500 text-sm"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <p class="text-xs font-semibold text-slate-600">4.9 / 5 · Google Rating</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          <figure class="reveal flex flex-col rounded-3xl border border-slate-100 bg-white p-7 shadow-card">
+            <div class="flex text-accent-500"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <blockquote class="mt-4 flex-1 text-slate-700">"Called at 11 PM with water pouring through the ceiling. Marcus was here in 40 minutes, fixed it, and the price was exactly what he quoted. Unbelievable service."</blockquote>
+            <figcaption class="mt-6 flex items-center gap-3">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-brand-100 font-bold text-brand-800">JR</span>
+              <div><p class="font-semibold text-slate-900">Jennifer R.</p><p class="text-xs text-slate-500">Verified Customer · Westfield</p></div>
+            </figcaption>
+          </figure>
+          <figure class="reveal reveal-delay-1 flex flex-col rounded-3xl border border-slate-100 bg-white p-7 shadow-card">
+            <div class="flex text-accent-500"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <blockquote class="mt-4 flex-1 text-slate-700">"Third company we called, and the only one that didn't try to upsell us. Honest assessment, clean work, and they even swept the garage. Customers for life."</blockquote>
+            <figcaption class="mt-6 flex items-center gap-3">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-brand-100 font-bold text-brand-800">DP</span>
+              <div><p class="font-semibold text-slate-900">David &amp; Priya M.</p><p class="text-xs text-slate-500">Verified Customer · Oak Park</p></div>
+            </figcaption>
+          </figure>
+          <figure class="reveal reveal-delay-2 flex flex-col rounded-3xl border border-slate-100 bg-white p-7 shadow-card">
+            <div class="flex text-accent-500"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <blockquote class="mt-4 flex-1 text-slate-700">"We manage 14 rental units and Summit handles all of them. Scheduling is effortless, the techs are professional, and tenants actually compliment them."</blockquote>
+            <figcaption class="mt-6 flex items-center gap-3">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-brand-100 font-bold text-brand-800">TK</span>
+              <div><p class="font-semibold text-slate-900">Tom K.</p><p class="text-xs text-slate-500">Property Manager · Northgate Realty</p></div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VIP LEAD CAPTURE ===================== -->
+    <section id="quote" class="relative overflow-hidden bg-brand-900 py-20 text-white lg:py-28">
+      <div class="bg-grid absolute inset-0 opacity-40" aria-hidden="true"></div>
+      <div class="absolute -left-32 top-0 h-[480px] w-[480px] rounded-full bg-brand-500/30 blur-3xl" aria-hidden="true"></div>
+      <div class="absolute -bottom-32 -right-32 h-[420px] w-[420px] rounded-full bg-accent-500/20 blur-3xl" aria-hidden="true"></div>
+
+      <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+        <!-- Persuasion column -->
+        <div class="reveal lg:col-span-5">
+          <span class="inline-flex items-center gap-2 rounded-full bg-accent-500 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand-950">
+            <i class="fa-solid fa-crown"></i> VIP Priority Response
+          </span>
+          <h2 class="font-display mt-5 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">Get your free quote in <span class="text-gradient">under 15 minutes.</span></h2>
+          <p class="mt-5 text-lg text-slate-300">Tell us a little about your project. A real local expert (not a call center) will reach out with a clear price and next available time.</p>
+
+          <ul class="mt-8 space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-emerald-500/20 text-emerald-400"><i class="fa-solid fa-check text-xs"></i></span>
+              <p class="text-slate-200"><strong class="text-white">No obligation.</strong> Get the facts and decide on your own time.</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-emerald-500/20 text-emerald-400"><i class="fa-solid fa-check text-xs"></i></span>
+              <p class="text-slate-200"><strong class="text-white">$50 off</strong> your first service when you book online.</p>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-emerald-500/20 text-emerald-400"><i class="fa-solid fa-check text-xs"></i></span>
+              <p class="text-slate-200"><strong class="text-white">Your info stays private.</strong> We never sell or share your details.</p>
+            </li>
+          </ul>
+
+          <div class="mt-10 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+            <div class="flex -space-x-3">
+              <span class="grid h-10 w-10 place-items-center rounded-full border-2 border-brand-900 bg-brand-200 text-xs font-bold text-brand-900">AL</span>
+              <span class="grid h-10 w-10 place-items-center rounded-full border-2 border-brand-900 bg-accent-400 text-xs font-bold text-brand-900">MK</span>
+              <span class="grid h-10 w-10 place-items-center rounded-full border-2 border-brand-900 bg-emerald-300 text-xs font-bold text-brand-900">SR</span>
+            </div>
+            <p class="text-sm text-slate-300"><strong class="text-white">37 neighbors</strong> requested a quote this week</p>
+          </div>
+
+          <p class="mt-8 text-sm text-slate-400">Prefer to talk? <a href="tel:+15551234567" class="font-semibold text-accent-400 hover:underline">Call (555) 123-4567</a> — we answer 24/7.</p>
+        </div>
+
+        <!-- Form card -->
+        <div class="reveal reveal-delay-1 lg:col-span-7">
+          <div class="rounded-3xl bg-white p-6 text-slate-900 shadow-2xl sm:p-10">
+            <div class="mb-8 flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-display text-2xl font-extrabold text-slate-900">Request Your Free Quote</h3>
+                <p class="mt-1 text-sm text-slate-500">Takes 30 seconds. We respond fast.</p>
+              </div>
+              <span class="hidden shrink-0 items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 sm:inline-flex">
+                <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Team online now
+              </span>
+            </div>
+
+            <form id="gate1-universal-form" name="gate1-universal-form" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" novalidate class="space-y-5">
+              <input type="hidden" name="form-name" value="gate1-universal-form">
+              <input type="hidden" name="destinationEmail" value="bb8654838@gmail.com">
+              <input type="hidden" name="source_page" id="source-page-field" value="">
+              <p class="hidden" aria-hidden="true"><label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div class="field">
+                  <input type="text" id="lead-name" name="full_name" placeholder="Full Name" autocomplete="name" required>
+                  <label for="lead-name">Full Name <span class="text-red-500">*</span></label>
+                  <p class="error-msg">Please enter your full name.</p>
+                </div>
+                <div class="field">
+                  <input type="tel" id="lead-phone" name="phone" placeholder="Phone" autocomplete="tel" inputmode="tel" required>
+                  <label for="lead-phone">Phone Number <span class="text-red-500">*</span></label>
+                  <p class="error-msg">Please enter a valid phone number.</p>
+                </div>
+              </div>
+
+              <div class="field">
+                <input type="email" id="lead-email" name="email" placeholder="Email" autocomplete="email" inputmode="email" required>
+                <label for="lead-email">Email Address <span class="text-red-500">*</span></label>
+                <p class="error-msg">Please enter a valid email address.</p>
+              </div>
+
+              <div class="field">
+                <select id="lead-service" name="service_needed" required>
+                  <option value="" disabled selected hidden></option>
+                  <option value="Emergency Repair">Emergency Repair (24/7)</option>
+                  <option value="Repair or Installation">Repair or Installation</option>
+                  <option value="Preventive Maintenance">Preventive Maintenance / Tune-Up</option>
+                  <option value="Free Inspection">Free Inspection &amp; Estimate</option>
+                  <option value="Other">Something Else</option>
+                </select>
+                <label for="lead-service">Service Needed <span class="text-red-500">*</span></label>
+                <i class="fa-solid fa-chevron-down chevron text-sm"></i>
+                <p class="error-msg">Please select a service.</p>
+              </div>
+
+              <div class="field">
+                <textarea id="lead-message" name="message" rows="3" placeholder="Message"></textarea>
+                <label for="lead-message">Tell us about the issue &amp; urgency (optional)</label>
+              </div>
+
+              <!-- Urgency selector -->
+              <fieldset>
+                <legend class="mb-2.5 text-sm font-semibold text-slate-700">How soon do you need help?</legend>
+                <div class="grid grid-cols-3 gap-2.5">
+                  <label class="cursor-pointer">
+                    <input type="radio" name="urgency" value="ASAP" class="peer sr-only">
+                    <span class="flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 px-3 py-2.5 text-sm font-medium text-slate-600 transition peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-700 hover:border-slate-300"><i class="fa-solid fa-bolt"></i> ASAP</span>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="urgency" value="This week" class="peer sr-only" checked>
+                    <span class="flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 px-3 py-2.5 text-sm font-medium text-slate-600 transition peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 hover:border-slate-300"><i class="fa-regular fa-calendar"></i> This week</span>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="urgency" value="Flexible" class="peer sr-only">
+                    <span class="flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 px-3 py-2.5 text-sm font-medium text-slate-600 transition peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 hover:border-slate-300"><i class="fa-regular fa-clock"></i> Flexible</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <button type="submit" id="lead-submit-btn" class="btn-shine group flex w-full items-center justify-center gap-2.5 rounded-xl bg-brand-600 px-6 py-4 text-base font-bold text-white shadow-soft transition hover:bg-brand-700 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0">
+                <span class="btn-label">Get My Free Quote</span>
+                <i class="fa-solid fa-arrow-right btn-icon text-sm transition group-hover:translate-x-1"></i>
+              </button>
+
+              <p class="flex items-center justify-center gap-2 text-center text-xs text-slate-500">
+                <i class="fa-solid fa-lock"></i> 256-bit secure · No spam, ever · By submitting you agree to be contacted about your request.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SERVICE AREA / FAQ TEASER ===================== -->
+    <section id="service-area" class="bg-white py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid items-center gap-10 rounded-3xl border border-slate-100 bg-slate-50 p-8 sm:p-12 lg:grid-cols-2">
+          <div>
+            <p class="text-sm font-bold uppercase tracking-[.2em] text-brand-600">Service Area</p>
+            <h2 class="font-display mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Proudly serving the greater metro area</h2>
+            <p class="mt-4 text-slate-600">Local techs stationed across the region means faster arrivals and neighbors who know your area.</p>
+            <ul class="mt-6 grid grid-cols-2 gap-y-2 text-sm font-medium text-slate-700 sm:grid-cols-3">
+              <li><i class="fa-solid fa-location-dot mr-2 text-brand-500"></i>Downtown</li>
+              <li><i class="fa-solid fa-location-dot mr-2 text-brand-500"></i>Westfield</li>
+              <li><i class="fa-solid fa-location-dot mr-2 text-brand-500"></i>Oak Park</li>
+              <li><i class="fa-solid fa-location-dot mr-2 text-brand-500"></i>Northgate</li>
+              <li><i class="fa-solid fa-location-dot mr-2 text-brand-500"></i>Lakeside</li>
+              <li><i class="fa-solid fa-location-dot mr-2 text-brand-500"></i>Ridgeview</li>
+            </ul>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-2xl bg-white p-6 shadow-card">
+              <i class="fa-solid fa-clock text-2xl text-brand-600"></i>
+              <p class="font-display mt-3 font-bold text-slate-900">Hours</p>
+              <p class="mt-1 text-sm text-slate-600">Mon–Sat: 7am – 8pm<br>Emergency: 24/7</p>
+            </div>
+            <div class="rounded-2xl bg-white p-6 shadow-card">
+              <i class="fa-solid fa-phone text-2xl text-brand-600"></i>
+              <p class="font-display mt-3 font-bold text-slate-900">Call or Text</p>
+              <a href="tel:+15551234567" class="mt-1 block text-sm font-semibold text-brand-600 hover:underline">(555) 123-4567</a>
+            </div>
+            <div class="rounded-2xl bg-white p-6 shadow-card">
+              <i class="fa-solid fa-envelope text-2xl text-brand-600"></i>
+              <p class="font-display mt-3 font-bold text-slate-900">Email</p>
+              <a href="mailto:hello@summitservices.com" class="mt-1 block text-sm font-semibold text-brand-600 hover:underline">hello@summitservices.com</a>
+            </div>
+            <div class="rounded-2xl bg-white p-6 shadow-card">
+              <i class="fa-solid fa-map-location-dot text-2xl text-brand-600"></i>
+              <p class="font-display mt-3 font-bold text-slate-900">Office</p>
+              <p class="mt-1 text-sm text-slate-600">1200 Main Street, Suite 4<br>Your City, ST 00000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="site-footer" class="bg-brand-950 pb-28 pt-16 text-slate-300 sm:pb-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-10 md:grid-cols-4">
+        <div class="md:col-span-2">
+          <a href="#" class="flex items-center gap-2.5">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-white text-brand-900"><i class="fa-solid fa-mountain text-lg"></i></span>
+            <span class="font-display text-xl font-extrabold tracking-tight text-white">Summit<span class="text-accent-400">.</span></span>
+          </a>
+          <p class="mt-4 max-w-sm text-sm text-slate-400">Family-owned and operated since 2008. Licensed, insured, and committed to doing right by our neighbors.</p>
+          <p class="mt-4 text-xs text-slate-500">License #ABC-123456 · Fully Bonded &amp; Insured</p>
+          <div class="mt-6 flex gap-3">
+            <a href="#" aria-label="Facebook" class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 transition hover:bg-white/10 hover:text-white"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram" class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 transition hover:bg-white/10 hover:text-white"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Google" class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 transition hover:bg-white/10 hover:text-white"><i class="fa-brands fa-google"></i></a>
+            <a href="#" aria-label="Yelp" class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 transition hover:bg-white/10 hover:text-white"><i class="fa-brands fa-yelp"></i></a>
+          </div>
+        </div>
+        <div>
+          <p class="font-display font-bold text-white">Services</p>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#services" class="transition hover:text-white">Emergency Repairs</a></li>
+            <li><a href="#services" class="transition hover:text-white">Repairs &amp; Installation</a></li>
+            <li><a href="#services" class="transition hover:text-white">Preventive Maintenance</a></li>
+            <li><a href="#services" class="transition hover:text-white">Free Inspections</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-display font-bold text-white">Company</p>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><a href="#why-us" class="transition hover:text-white">Why Choose Us</a></li>
+            <li><a href="#reviews" class="transition hover:text-white">Reviews</a></li>
+            <li><a href="#service-area" class="transition hover:text-white">Service Area</a></li>
+            <li><a href="#quote" class="transition hover:text-white">Get a Quote</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
+        <p>&copy; <span id="footer-year">2026</span> Summit Home Services. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white">Privacy Policy</a>
+          <a href="#" class="hover:text-white">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== MOBILE STICKY CTA ===================== -->
+  <div id="mobile-sticky-cta" class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-slate-200 bg-white/95 p-3 backdrop-blur sm:hidden">
+    <a href="tel:+15551234567" class="flex items-center justify-center gap-2 rounded-xl border border-brand-900 py-3 text-sm font-bold text-brand-900"><i class="fa-solid fa-phone"></i> Call Now</a>
+    <a href="#quote" class="flex items-center justify-center gap-2 rounded-xl bg-accent-500 py-3 text-sm font-bold text-brand-950"><i class="fa-solid fa-bolt"></i> Free Quote</a>
+  </div>
+
+  <!-- ===================== TOAST ===================== -->
+  <div id="toast" role="status" aria-live="polite" class="fixed bottom-24 left-4 right-4 z-[60] mx-auto flex max-w-md items-center gap-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-2xl sm:bottom-6 sm:left-auto sm:right-6">
+    <span id="toast-icon" class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-emerald-500 text-white"><i class="fa-solid fa-check text-lg"></i></span>
+    <div class="flex-1">
+      <p id="toast-title" class="font-display font-bold text-slate-900">Request received!</p>
+      <p id="toast-message" class="text-sm text-slate-600">We'll contact you shortly!</p>
+    </div>
+    <button id="toast-close" class="grid h-8 w-8 place-items-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-slate-700" aria-label="Dismiss notification"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------- Config ---------- */
+      const FORM_ENDPOINT = '/'; // same-origin POST — Netlify records via form-name field
+
+      /* ---------- Helpers ---------- */
+      const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+      const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+
+      /* ---------- Footer year + source page ---------- */
+      $('#footer-year').textContent = new Date().getFullYear();
+      const srcField = $('#source-page-field');
+      if (srcField) srcField.value = window.location.href;
+
+      /* ---------- Header shadow on scroll ---------- */
+      const header = $('#site-header');
+      const onScroll = () => {
+        if (window.scrollY > 12) {
+          header.classList.add('border-slate-200/70', 'shadow-[0_4px_30px_-12px_rgba(11,30,91,.25)]');
+        } else {
+          header.classList.remove('border-slate-200/70', 'shadow-[0_4px_30px_-12px_rgba(11,30,91,.25)]');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* ---------- Mobile menu ---------- */
+      const menuBtn = $('#mobile-menu-toggle');
+      const menu = $('#mobile-menu');
+      menuBtn.addEventListener('click', () => {
+        const open = menu.classList.toggle('hidden') === false;
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+      });
+      $$('#mobile-menu a').forEach(a => a.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      }));
+
+      /* ---------- Scroll reveal ---------- */
+      const revealEls = $$('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => io.observe(el));
+      } else {
+        revealEls.forEach(el => el.classList.add('is-visible'));
+      }
+
+      /* ---------- Animated counters ---------- */
+      const counters = $$('[data-counter]');
+      const runCounter = (el) => {
+        const target = parseInt(el.dataset.counter, 10);
+        const suffix = el.dataset.suffix || '';
+        const duration = 1400;
+        const start = performance.now();
+        const step = (now) => {
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased).toLocaleString() + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      if ('IntersectionObserver' in window) {
+        const cio = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { runCounter(e.target); cio.unobserve(e.target); } });
+        }, { threshold: 0.5 });
+        counters.forEach(el => cio.observe(el));
+      } else {
+        counters.forEach(runCounter);
+      }
+
+      /* ---------- Toast ---------- */
+      const toast = $('#toast');
+      const toastIcon = $('#toast-icon');
+      const toastTitle = $('#toast-title');
+      const toastMsg = $('#toast-message');
+      let toastTimer;
+      function showToast(type, title, message) {
+        clearTimeout(toastTimer);
+        const isSuccess = type === 'success';
+        toastIcon.className = 'grid h-11 w-11 shrink-0 place-items-center rounded-xl text-white ' + (isSuccess ? 'bg-emerald-500' : 'bg-red-500');
+        toastIcon.innerHTML = isSuccess ? '<i class="fa-solid fa-check text-lg"></i>' : '<i class="fa-solid fa-triangle-exclamation text-lg"></i>';
+        toastTitle.textContent = title;
+        toastMsg.textContent = message;
+        toast.classList.add('show');
+        toastTimer = setTimeout(hideToast, 6000);
+      }
+      function hideToast() { toast.classList.remove('show'); }
+      $('#toast-close').addEventListener('click', hideToast);
+
+      /* ---------- Floating label support for <select> ---------- */
+      const serviceSelect = $('#lead-service');
+      const syncSelect = () => serviceSelect.classList.toggle('has-value', serviceSelect.value !== '');
+      serviceSelect.addEventListener('change', syncSelect);
+      syncSelect();
+
+      /* ---------- Validation ---------- */
+      const validators = {
+        full_name: v => v.trim().length >= 2,
+        phone: v => v.replace(/\D/g, '').length >= 7,
+        email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+        service_needed: v => v !== '',
+      };
+      function setError(input, hasError) {
+        const wrapper = input.closest('.field');
+        if (wrapper) wrapper.classList.toggle('has-error', hasError);
+      }
+      function validateForm(form) {
+        let firstInvalid = null;
+        Object.keys(validators).forEach(name => {
+          const input = form.elements[name];
+          if (!input) return;
+          const ok = validators[name](input.value || '');
+          setError(input, !ok);
+          if (!ok && !firstInvalid) firstInvalid = input;
+        });
+        if (firstInvalid) firstInvalid.focus();
+        return !firstInvalid;
+      }
+
+      /* ---------- Form submission (gate1-universal-form) ---------- */
+      const form = $('#gate1-universal-form');
+      const submitBtn = $('#lead-submit-btn');
+      const btnLabel = $('.btn-label', submitBtn);
+      const btnIcon = $('.btn-icon', submitBtn);
+      const originalLabel = btnLabel.textContent;
+
+      // Live-clear errors as user types
+      $$('input, select, textarea', form).forEach(el => {
+        el.addEventListener('input', () => setError(el, false));
+      });
+
+      function setLoading(isLoading) {
+        submitBtn.disabled = isLoading;
+        if (isLoading) {
+          btnLabel.textContent = 'Sending...';
+          btnIcon.className = 'fa-solid fa-spinner fa-spin btn-icon text-sm';
+        } else {
+          btnLabel.textContent = originalLabel;
+          btnIcon.className = 'fa-solid fa-arrow-right btn-icon text-sm transition group-hover:translate-x-1';
+        }
+      }
+
+      form.addEventListener('submit', async (event) => {
+        // 1. Prevent default submission
+        event.preventDefault();
+
+        // Honeypot check — silently "succeed" for bots
+        if (form.elements['bot-field'] && form.elements['bot-field'].value) {
+          form.reset(); syncSelect();
+          return;
+        }
+
+        if (!validateForm(form)) {
+          showToast('error', 'Almost there', 'Please fix the highlighted fields and try again.');
+          return;
+        }
+
+        // 2. Gather data into a JSON payload
+        const formData = new FormData(form);
+        const payload = {};
+        formData.forEach((value, key) => { payload[key] = typeof value === 'string' ? value.trim() : value; });
+        payload.submitted_at = new Date().toISOString();
+
+        // 3. Loading state
+        setLoading(true);
+
+        try {
+          // 4. POST as URL-encoded (required for Netlify form detection)
+          const body = new URLSearchParams(payload).toString();
+          const response = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body,
+          });
+
+          if (!response.ok) throw new Error('Request failed with status ' + response.status);
+
+          // 5. Success — toast + reset
+          showToast('success', 'Request received!', "We'll contact you shortly!");
+          form.reset();
+          syncSelect();
+          $$('.field').forEach(f => f.classList.remove('has-error'));
+
+          // Optional: analytics hook
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'generate_lead', { form_id: 'gate1-universal-form' });
+          }
+        } catch (err) {
+          console.error('[gate1-universal-form] submission error:', err);
+          showToast('error', 'Something went wrong', 'Please try again or call us at (555) 123-4567.');
+        } finally {
+          setLoading(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
