@@ -2,6 +2,11 @@
  * leadForm.js — Gate-1 lead capture: glass form logic, webhook POST, toasts.
  * buildPayload() and submitLead() are DOM-free + dependency-free so they can be
  * unit-tested directly in Node.
+ *
+ * Live-mode delivery paths (first one wins):
+ *   1. gate1WebhookUrl  -> JSON POST (client-owned webhook / Zapier / worker)
+ *   2. netlifyFormName  -> urlencoded multipart POST to "/" (Netlify form
+ *      detection pipeline; retrievable via /api/v1/forms/:form_id/submissions)
  */
 
 /** Build the Gate-1 payload from a form element (or FormData). Pure. */
@@ -20,29 +25,53 @@ export function buildPayload(form, destinationEmail = '') {
   };
 }
 
+/** Encode a payload as Netlify-compatible multipart/form-data. Pure. */
+export function _toMultipart(payload, formName) {
+  const fd = new FormData();
+  fd.set('form-name', formName);
+  for (const [k, v] of Object.entries(payload)) {
+    if (v !== undefined && v !== null) fd.set(k, String(v));
+  }
+  return fd;
+}
+
 /**
- * POST the lead to the Gate-1 webhook.
+ * POST the lead through the configured live-mode path.
  * - gate1WebhookUrl set  -> real POST (JSON), expects 2xx
+ * - netlifyFormName set  -> multipart POST to same-origin "/",
+ *                           Content-Type left to the fetch body (FormData)
  * - no URL + demoMode    -> simulated success, payload logged in console
  * - no URL + no demo     -> throws
  */
 export async function submitLead(leadCapture, payload) {
   const url = leadCapture && leadCapture.gate1WebhookUrl;
-  if (!url) {
-    if (leadCapture && leadCapture.demoMode) {
-      console.warn('[GATE-1] demoMode active — payload NOT sent. Set leadCapture.gate1WebhookUrl to go live.', payload);
-      await new Promise((r) => setTimeout(r, 900));
-      return { ok: true, demo: true };
-    }
-    throw new Error('GATE-1: no gate1WebhookUrl configured and demoMode is off');
+  if (url) {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error(`GATE-1 webhook responded ${res.status}`);
+    return { ok: true, demo: false };
   }
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  if (!res.ok) throw new Error(`GATE-1 webhook responded ${res.status}`);
-  return { ok: true, demo: false };
+
+  const formName = leadCapture && leadCapture.netlifyFormName;
+  if (formName) {
+    // NOTE: trailing-slash + no custom Content-Type are required by Netlify
+    // form detection for static form POSTs. netlifyFormEndpoint overrides the
+    // target (same-origin "/" by default; absolute URL in tests/Node).
+    const endpoint = (leadCapture && leadCapture.netlifyFormEndpoint) || '/';
+    const res = await fetch(endpoint, { method: 'POST', body: _toMultipart(payload, formName) });
+    if (!res.ok) throw new Error(`GATE-1 netlify form responded ${res.status}`);
+    return { ok: true, demo: false };
+  }
+
+  if (leadCapture && leadCapture.demoMode) {
+    console.warn('[GATE-1] demoMode active — payload NOT sent. Set leadCapture.gate1WebhookUrl (or netlifyFormName) to go live.', payload);
+    await new Promise((r) => setTimeout(r, 900));
+    return { ok: true, demo: true };
+  }
+  throw new Error('GATE-1: no gate1WebhookUrl configured and demoMode is off');
 }
 
 /** Toast notification (glassmorphism, bottom-right, auto-dismiss). */
@@ -82,7 +111,7 @@ export function initLeadForm() {
     btn.disabled = on;
     btn.classList.toggle('opacity-70', on);
     btn.classList.toggle('cursor-wait', on);
-    btnText.textContent = on ? 'Sending…' : 'Request Consultation';
+    btnText.textContent = on ? 'Sending...' : 'Request Consultation';
     spinner.classList.toggle('hidden', !on);
   };
 

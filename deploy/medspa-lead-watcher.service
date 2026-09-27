@@ -1,0 +1,16 @@
+[Unit]
+Description=Glow MedSpa Gate-1 lead watcher (Netlify forms -> himalaya SMTP)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Environment=HOME=/home/ubuntu
+ExecStart=/home/ubuntu/hermes-agent/venv/bin/python3 /home/ubuntu/projects/medspa-master-template/scripts/lead_watcher.py
+Restart=always
+RestartSec=15
+Environment=LEAD_POLL_INTERVAL=60
+
+[Install]
+WantedBy=multi-user.target

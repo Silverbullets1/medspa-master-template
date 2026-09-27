@@ -24,39 +24,118 @@
     "imageUrl": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1600&q=80"
   },
   "services": [
-    { "icon": "injectable", "title": "Neuromodulators", "description": "Botox, Dysport and Xeomin — soft lines, natural movement, zero frozen look.", "price": "from $11/unit" },
-    { "icon": "injectable", "title": "Dermal Fillers", "description": "Lip, cheek and jawline contouring with hyaluronic acid fillers.", "price": "from $450/syringe" },
-    { "icon": "laser", "title": "Laser Glow Facial", "description": "Gentle laser resurfacing for tone, texture and instant radiance.", "price": "from $350" },
-    { "icon": "skin", "title": "HydraFacial Elite", "description": "Deep cleanse, extract and hydrate — the red-carpet glow ritual.", "price": "from $250" },
-    { "icon": "skin", "title": "Microneedling RF", "description": "Collagen-induction therapy with radiofrequency for firm, lifted skin.", "price": "from $400" },
-    { "icon": "wellness", "title": "IV Glow Drip", "description": "Glutathione and vitamin C infusion for inside-out radiance.", "price": "from $180" },
-    { "icon": "body", "title": "Body Contouring", "description": "Non-invasive fat reduction and skin tightening.", "price": "from $600" }
+    {
+      "icon": "injectable",
+      "title": "Neuromodulators",
+      "description": "Botox, Dysport and Xeomin — soft lines, natural movement, zero frozen look.",
+      "price": "from $11/unit"
+    },
+    {
+      "icon": "injectable",
+      "title": "Dermal Fillers",
+      "description": "Lip, cheek and jawline contouring with hyaluronic acid fillers.",
+      "price": "from $450/syringe"
+    },
+    {
+      "icon": "laser",
+      "title": "Laser Glow Facial",
+      "description": "Gentle laser resurfacing for tone, texture and instant radiance.",
+      "price": "from $350"
+    },
+    {
+      "icon": "skin",
+      "title": "HydraFacial Elite",
+      "description": "Deep cleanse, extract and hydrate — the red-carpet glow ritual.",
+      "price": "from $250"
+    },
+    {
+      "icon": "skin",
+      "title": "Microneedling RF",
+      "description": "Collagen-induction therapy with radiofrequency for firm, lifted skin.",
+      "price": "from $400"
+    },
+    {
+      "icon": "wellness",
+      "title": "IV Glow Drip",
+      "description": "Glutathione and vitamin C infusion for inside-out radiance.",
+      "price": "from $180"
+    },
+    {
+      "icon": "body",
+      "title": "Body Contouring",
+      "description": "Non-invasive fat reduction and skin tightening.",
+      "price": "from $600"
+    }
   ],
   "testimonials": [
-    { "quote": "My skin has never looked this good — the laser glow facial is magic.", "author": "Priya M.", "service": "Laser Glow Facial" },
-    { "quote": "Subtle, natural filler work. Everyone asks about my 'vacation glow'.", "author": "Daniela R.", "service": "Dermal Fillers" },
-    { "quote": "The IV drip and HydraFacial combo is my monthly ritual now.", "author": "Sam K.", "service": "IV Glow Drip" },
-    { "quote": "Professional, painless, perfect. Booking to results, five stars.", "author": "Aisha T.", "service": "Microneedling RF" }
+    {
+      "quote": "My skin has never looked this good — the laser glow facial is magic.",
+      "author": "Priya M.",
+      "service": "Laser Glow Facial"
+    },
+    {
+      "quote": "Subtle, natural filler work. Everyone asks about my 'vacation glow'.",
+      "author": "Daniela R.",
+      "service": "Dermal Fillers"
+    },
+    {
+      "quote": "The IV drip and HydraFacial combo is my monthly ritual now.",
+      "author": "Sam K.",
+      "service": "IV Glow Drip"
+    },
+    {
+      "quote": "Professional, painless, perfect. Booking to results, five stars.",
+      "author": "Aisha T.",
+      "service": "Microneedling RF"
+    }
   ],
   "gallery": [
-    { "src": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80", "alt": "Treatment suite" },
-    { "src": "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=900&q=80", "alt": "Glow ritual in progress" },
-    { "src": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80", "alt": "Consultation room" },
-    { "src": "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=900&q=80", "alt": "Skin analysis" },
-    { "src": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80", "alt": "Glow results" },
-    { "src": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80&sat=-20", "alt": "Relax lounge" }
+    {
+      "src": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80",
+      "alt": "Treatment suite"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=900&q=80",
+      "alt": "Glow ritual in progress"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=900&q=80",
+      "alt": "Consultation room"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=900&q=80",
+      "alt": "Skin analysis"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80",
+      "alt": "Glow results"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80&sat=-20",
+      "alt": "Relax lounge"
+    }
   ],
   "hours": [
-    { "days": "Mon – Fri", "time": "9:00 AM – 7:00 PM" },
-    { "days": "Saturday", "time": "10:00 AM – 5:00 PM" },
-    { "days": "Sunday", "time": "By appointment" }
+    {
+      "days": "Mon – Fri",
+      "time": "9:00 AM – 7:00 PM"
+    },
+    {
+      "days": "Saturday",
+      "time": "10:00 AM – 5:00 PM"
+    },
+    {
+      "days": "Sunday",
+      "time": "By appointment"
+    }
   ],
   "leadCapture": {
     "enabled": true,
     "heading": "Request a Consultation",
     "subtext": "Tell us your goals — our care team responds within one business day.",
-    "destinationEmail": "leads@glowmedspa.com",
+    "destinationEmail": "bb8654838@gmail.com",
     "gate1WebhookUrl": "",
-    "demoMode": true
+    "demoMode": false,
+    "netlifyFormName": "lead-capture"
   }
 }

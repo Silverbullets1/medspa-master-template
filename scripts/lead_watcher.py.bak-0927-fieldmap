@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+"""
+lead_watcher.py — Gate-1 live-mode lead forwarder.
+
+Polls Netlify form submissions (REST, NETLIFY_PAT from ~/.hermes/.env via
+env-key.sh convention) and forwards every new lead to the client's
+destinationEmail using the local `himalaya` CLI (account: gmail).
+
+State: ~/.hermes/medspa/lead_state.json  (last seen submission id)
+Log:   ~/.hermes/medspa/lead_watcher.log (UTC timestamps)
+"""
+import json
+import os
+import subprocess
+import sys
+import time
+import urllib.request
+from datetime import datetime, timezone
+from email.message import EmailMessage
+
+SITE_ID = "74721352-1f4e-42ff-9385-8a33aa1f8680"
+FORMS_URL = f"https://api.netlify.com/api/v1/sites/{SITE_ID}/forms"
+STATE_DIR = os.path.expanduser("~/.hermes/medspa")
+STATE_FILE = os.path.join(STATE_DIR, "lead_state.json")
+LOG_FILE = os.path.join(STATE_DIR, "lead_watcher.log")
+ENV_KEY = os.path.expanduser("~/.hermes/scripts/env-key.sh")
+HIMALAYA = os.path.expanduser("~/.local/bin/himalaya")
+HIMALAYA_ACCOUNT = "gmail"
+# Send-allowlist: leads are ONLY forwarded to these. Any other destinationEmail
+# in a submission payload is logged and permanently skipped (never mailed).
+# On client go-live, append the client's own inbox here after SAM's approval.
+SAFE_DEST = {"bb8654838@gmail.com"}
+POLL_INTERVAL = int(os.environ.get("LEAD_POLL_INTERVAL", "60"))  # seconds
+SEEN_CAP = 500  # keep state file bounded
+
+
+def log(msg):
+    os.makedirs(STATE_DIR, exist_ok=True)
+    line = f"[{datetime.now(timezone.utc).isoformat(timespec='seconds')}] {msg}"
+    print(line, flush=True)
+    with open(LOG_FILE, "a", encoding="utf-8") as fh:
+        fh.write(line + "\n")
+
+
+def netlify_token():
+    out = subprocess.run(["bash", ENV_KEY, "NETLIFY_PAT"],
+                         capture_output=True, text=True, check=True)
+    return out.stdout.strip()
+
+
+def http_json(url, token):
+    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def load_state():
+    try:
+        with open(STATE_FILE, encoding="utf-8") as fh:
+            return json.load(fh)
+    except (OSError, ValueError):
+        return {}
+
+
+def save_state(state):
+    os.makedirs(STATE_DIR, exist_ok=True)
+    with open(STATE_FILE, "w", encoding="utf-8") as fh:
+        json.dump(state, fh, indent=1)
+
+
+def lead_text(lead):
+    d = lead.get("data") or {}
+    lines = [
+        "New consultation request — Glow MedSpa",
+        "",
+        f"Name:     {d.get('name', '')}",
+        f"Email:    {d.get('email', '')}",
+        f"Phone:    {d.get('phone', '')}",
+        f"Service:  {d.get('service', '')}",
+        f"Message:  {d.get('message', '')}",
+        f"Received: {lead.get('created_at', '')}",
+        f"Source:   {d.get('source', '')}",
+    ]
+    return "\n".join(lines)
+
+
+def send_lead(lead, dest):
+    d = lead.get("data") or {}
+    msg = EmailMessage()
+    msg["From"] = "Sam"
+    msg["To"] = dest
+    msg["Subject"] = f"[Glow MedSpa Lead] {d.get('name', 'Unknown')} — {d.get('service', 'consultation')}"
+    msg.set_content(lead_text(lead))
+    # himalaya built-in composer: assemble + send through the account's SMTP
+    # in one call (flags: --to/--subject/--body; body inline is fine for leads)
+    p = subprocess.run(
+        [HIMALAYA, "-a", HIMALAYA_ACCOUNT, "message", "compose",
+         "--to", dest, "--subject", msg["Subject"],
+         "--body", lead_text(lead), "--send"],
+        capture_output=True, text=True)
+    if p.returncode != 0:
+        raise RuntimeError(f"himalaya send failed: {p.stderr.strip()[:200]}")
+    return p.stdout.strip()
+
+
+def main():
+    poll_once = "--poll-once" in sys.argv
+    token = netlify_token()
+    state = load_state()
+    seen = set(state.get("seen_ids", []))
+    log(f"watcher start (site={SITE_ID}, state={STATE_FILE})")
+
+    while True:
+        try:
+            forms = http_json(FORMS_URL, token)
+            for form in forms:
+                subs = http_json(
+                    f"https://api.netlify.com/api/v1/forms/{form['id']}/submissions", token)
+                for lead in subs:
+                    lid = lead["id"]
+                    if lid in seen:
+                        continue
+                    dest = (lead.get("data") or {}).get("destinationEmail") or ""
+                    if dest not in SAFE_DEST:
+                        seen.add(lid)
+                        save_state({"seen_ids": sorted(seen)[-SEEN_CAP:],
+                                    "updated": datetime.now(timezone.utc).isoformat()})
+                        log(f"SKIPPED lead {lid}: destinationEmail '{dest}' "
+                            f"not in allowlist ({lead.get('data', {}).get('email', '')})")
+                        continue
+                    try:
+                        send_lead(lead, dest)
+                        seen.add(lid)
+                        # persist immediately: a crash right after send must not re-send
+                        save_state({"seen_ids": sorted(seen)[-SEEN_CAP:],
+                                    "updated": datetime.now(timezone.utc).isoformat()})
+                        log(f"forwarded lead {lid} -> {dest} "
+                            f"({lead.get('data', {}).get('email', '')})")
+                    except Exception as exc:  # noqa: BLE001 - keep polling on mail errors
+                        log(f"ERROR lead {lid}: {exc}")
+        except Exception as exc:  # noqa: BLE001
+            log(f"ERROR poll: {exc}")
+
+        save_state({"seen_ids": sorted(seen)[-SEEN_CAP:],
+                    "updated": datetime.now(timezone.utc).isoformat()})
+        if poll_once:
+            log("poll-once complete")
+            return
+        time.sleep(POLL_INTERVAL)
+
+
+if __name__ == "__main__":
+    main()
